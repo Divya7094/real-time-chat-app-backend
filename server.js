@@ -26,19 +26,32 @@ mongoose
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // ✅ WebSocket Setup
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://real-time-chat-frontend-ten.vercel.app",
+  "https://real-time-chat-frontend-cdhm955du-divya7094s-projects.vercel.app"
+];
+
+// ✅ Apply CORS middleware correctly
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST"],
+}));
+
+// ✅ WebSocket Setup with CORS
 const io = new Server(server, {
   cors: {
-    origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost:3000", "https://real-time-chat-frontend-ten.vercel.app","https://real-time-chat-frontend-cdhm955du-divya7094s-projects.vercel.app/"];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
-  },  
+  },
 });
+
 
 // ✅ WebSocket Events
 io.on("connection", async (socket) => {
