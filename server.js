@@ -29,7 +29,8 @@ mongoose
 const allowedOrigins = [
   "http://localhost:3000",
   "https://real-time-chat-frontend-ten.vercel.app",
-  "https://real-time-chat-frontend-cdhm955du-divya7094s-projects.vercel.app"
+  "https://real-time-chat-frontend-cdhm955du-divya7094s-projects.vercel.app",
+  "https://real-time-chat-web-app1.netlify.app/",
 ];
 
 // ✅ Apply CORS middleware correctly
