@@ -41,7 +41,8 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "OPTIONS"], // ✅ Ensure OPTIONS is included
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // ✅ WebSocket Setup with CORS
