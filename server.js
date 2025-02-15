@@ -27,7 +27,17 @@ mongoose
 
 // ✅ WebSocket Setup
 const io = new Server(server, {
-  cors: { origin: "http://localhost:3000", methods: ["GET", "POST"] },
+  cors: {
+    origin: (origin, callback) => {
+      const allowedOrigins = ["http://localhost:3000", "https://real-time-chat-frontend.vercel.app"];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
+  },  
 });
 
 // ✅ WebSocket Events
@@ -140,5 +150,5 @@ app.post("/login", async (req, res) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📡 WebSocket listening on ws://localhost:${PORT}`);
+  console.log(`📡 WebSocket listening on ${PORT === 5000 ? "ws://localhost:5000" : "wss://real-time-chat-backend.onrender.com"}`);
 });
