@@ -34,21 +34,16 @@ const allowedOrigins = [
 ];
 
 // ✅ Apply CORS middleware correctly
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-  }
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  next();
-});
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 // ✅ WebSocket Setup with CORS
 const io = new Server(server, {
@@ -169,5 +164,5 @@ app.post("/login", async (req, res) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📡 WebSocket listening on ${PORT === 5000 ? "ws://localhost:5000" : "wss://real-time-chat-backend.onrender.com"}`);
+  console.log(`📡 WebSocket listening on ${PORT === 5000 ? "ws://localhost:5000" : "wss://real-time-chat-app-backend-production.up.railway.app"}`);
 });
