@@ -19,7 +19,7 @@ app.use(express.json());
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
 // ✅ Connect to MongoDB
-const MONGO_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/chatApp";
+const MONGO_URL = process.env.MONGO_URL || "mongodb+srv://divyat51951:<RealTimeChat2025>@real-time-chat.ohbnk.mongodb.net/?retryWrites=true&w=majority&appName=Real-Time-Chat";
 mongoose
   .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB Connected"))
