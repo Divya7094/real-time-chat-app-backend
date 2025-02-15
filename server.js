@@ -29,7 +29,7 @@ mongoose
 const io = new Server(server, {
   cors: {
     origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost:3000", "https://real-time-chat-frontend.vercel.app"];
+      const allowedOrigins = ["http://localhost:3000", "https://real-time-chat-frontend-ten.vercel.app/"];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
