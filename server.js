@@ -161,8 +161,8 @@ app.post("/login", async (req, res) => {
 });
 
 // ✅ Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📡 WebSocket listening on ${PORT === 5000 ? "ws://localhost:5000" : "https://real-time-chat-app-backend-production.up.railway.app"}`);
+  console.log(`📡 WebSocket listening on ${PORT === 5000 ? "ws://localhost:5000" : "wss://real-time-chat-app-backend-l2sp.onrender.com"}`);
 });
